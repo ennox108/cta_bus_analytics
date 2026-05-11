@@ -25,21 +25,6 @@
 
 # COMMAND ----------
 
-import requests
-
-WORKSPACE_URL = "https://dbc-86881c45-3dc9.cloud.databricks.com/"
-TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
-headers = {"Authorization": f"Bearer {TOKEN}"}
-
-# Scope already exists, skip creation. Just put the secret:
-r2 = requests.post(f"{WORKSPACE_URL}/api/2.0/secrets/put",
-    headers=headers,
-    json={"scope": "cta", "key": "bus_tracker_key", "string_value": "GAqivHfPULJTGxLTC6KL4zKCe"}
-)
-print("Put secret:", r2.status_code, r2.text)
-
-# COMMAND ----------
-
 # DBTITLE 1, Parameters (override via Databricks job widgets)
 dbutils.widgets.text("catalog",       "workspace",  "Unity Catalog name")
 dbutils.widgets.text("schema",        "raw_cta",    "Target schema")
